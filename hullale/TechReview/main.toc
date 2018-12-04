@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {I}Abstract}{1}
+\contentsline {section}{\numberline {II}Introduction}{2}
+\contentsline {section}{\numberline {III}Database Management System}{2}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}MongoDB}{2}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}Couch DB}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-C}}MySQL}{3}
+\contentsline {section}{\numberline {IV}Auction Data Source}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}IAAI}{4}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Copart}{4}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-C}}Auto Auction Mall}{5}
+\contentsline {section}{\numberline {V}Auction Ranking System Language}{5}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Python}{5}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}C++}{5}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-C}}Java}{5}
+\contentsline {section}{\numberline {VI}Conclusion}{5}
+\contentsline {section}{References}{6}

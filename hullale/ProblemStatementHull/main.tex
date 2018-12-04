@@ -1,0 +1,42 @@
+\documentclass[draftclsnofoot,onecolumn,10pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+
+\title{Auction Hunter Problem Statement\\CS 461 - Fall 2018}
+\author{Alexander Hull - hullale}
+\date{October 11th, 2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\begin{document}
+
+\maketitle
+
+\singlespacing
+
+\section{Abstract}
+Quantifying the potential value of a wrecked car is tedious; each must be manually evaluated. It is difficult to ensure the price is low enough to make the bid worthwile. A program could automatically sift through car auctions, assign value, then track bidding and final sale price. By applying previously gathered data to new auctions, a prediction can be made on the expected ROI of these wrecked cars. This program could then automatically bid on undervalued cars, maximizing profits. The program will iterate through auctions, gather data and images, then populate a UI with relevant information. It should be expandable to use with a number of auction websites. To limit the scope, the focus will be on wrecked Tesla vehicles. 
+
+\newpage
+
+\section{Motivation}
+Tools already exist that estimate the value of a used car. Someone could fairly easily write a program that parses through all the used cars on a website and calculates the difference between the asking price and the real value. However, an accurate tool for totaled Tesla vehicles sold at auction doesn't exist. When implemented, this tool could be used to maximize profits when selling spare parts or rebuilding Teslas. It could also be used by the public to make sure they are getting a good deal. 
+
+It is difficult to determine the value of a wrecked car for a number of reasons. Firstly, it isn't easy to quantify the destructiveness of the accident. Second, they are sold at  auction which means the price you see could be wildly different than what it will sell for once bidding is complete. Lastly, there are so many entries to choose from that finding the best value manually would take too much time. Our Auction Hunter proposes to provide a solution to these three issues. 
+
+\section{Solution}
+Auction Hunter aims to traverse through a large collection of auctions and display to the user the auctions with the best deals. This will be accomplished by predicting both the total value of of parts, and the final sale price. 
+
+Calculating the total value of parts is a matter of starting off at the price of each part, then subtracting based on parts lost to the accident and general wear. These auction sites provide information and pictures, which will be automatically factored in. 
+The final sale price can be predicted by gathering historical auction data and determining how each characteristic affects the overall price. Comparing sales with and without each characteristic will quantify the value that each characteristic adds or subtracts from the overall sale price. If the program indicates that a car would historically sell for above the current price, it would be a good investment to try bidding on it. 
+
+Determining the value of a wrecked car has a lot to do with the pictures. Automatically predicting the value of the car based on the pictures is near impossible within the scope of a year of work. Therefore, a human element could be used at the final step in the process. The Auction Hunter program could eliminate the bottom 95\% of cars, then present the pictures of the top 5\% to the user to manually evaluate. A UI will have to be created to display these to a user along with related information about the car, and whatever metrics Auction Hunter used. 
+
+\section{Performance Metrics}
+The best way to quantify the effectiveness of the Auction Hunter program is have it predict the final sale price of a car without taking into account the initial asking price. The percent error can be calculated when compared to what the actual car ends up selling for. Determining the effectiveness of the value calculator is more difficult, because it would require manually evaluating the car and estimating how accurate it is. A more unrealistic measurement would be to buy a few of the cars the program labelled as the best deals and determine net profits.
+
+Another real world performance metric would be to let a few users interested in purchasing a totaled car test out the software, and provide feedback on the experience. 
+
+\end{document}

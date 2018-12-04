@@ -1,0 +1,48 @@
+\documentclass[draftclsnofoot,onecolumn,10pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+
+\title{Auction Hunter Problem Statement\\CS 461 - Fall 2018}
+\author{Alexander Hull, Alexander Jacobson, Yufei Zeng}
+\date{October 11th, 2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{tabularx} % extra features for tabular environment
+
+\begin{document}
+
+\maketitle
+
+\singlespacing
+
+\section{Abstract}
+
+Every month hundreds of crashed Teslas get put up for auction by insurance companies in the United States and abroad. Since Tesla is so new to the market, there is a lack of information about depreciation rates and salvage values. Quantifying the potential value of a wrecked car is tedious; each must be manually evaluated. Auction Hunter will help users gather information about the value of salvage vehicles, and provide recommendations. Auction Hunter seeks to watch as many auctions as publicly available and create pricing trends across different types of crashes. By applying previously gathered data to new auctions, a prediction can be made on the expected return on investment of these wrecked cars. The program will iterate through auctions, gather data and images, then populate a UI with relevant information. This will allow the users of Auction Hunter to better understand the real value of a used Tesla and even assist in buying one for a fair price.
+
+\newpage
+
+
+
+\section{Motivation}
+If someone totals a vehicle, the car will sometimes be auctioned by insurance companies. Every month, hundreds of potentially salvageable Teslas go to auction. Some of these are perfectly fixable but insurance companies opt to sell them due to exorbitant repair costs charged by body shops. The prices for different types of repairs varies wildly, and not all mechanics are familiar with Teslas. The value of most manufacturer's cars are well understood because they have been in businesses much longer than Tesla has. Given this difficulty in understanding the true value of a Tesla it can be exceedingly difficult to purchase a used Tesla that is in need or some repair. Even for professionals it can be difficult to discern what repairs will be needed and how much they will cost. All of this can lead to a buyer, through no fault of their own, buying a car at a price that is much higher than what it is worth.
+
+\vspace{3mm}When implemented, this tool could be used to maximize profits when selling spare parts or rebuilding Teslas. It could also be used by the public to make sure they are getting a good deal. Action Hunter will help users gather data on these cars quickly and conveniently. It is difficult to bid for cars on the east coast due to time zones. Consumers need a tool to help them automatically bid on the vehicle from around the country. 
+
+
+\section{Solution}
+To make buying a used Tesla a much easier and fairer processes, Auction Hunter aims to assist buyers by
+gathering data about past auctions and helping buyers find and purchase fairly priced cars. To do this Auction Hunter will collect data about past and current auctions on the details of the car as well as how much it sold for. Auction Hunter will allow buyers to specify parameters such as model, year, price, and condition which will allow it to notify buyers when a car comes up for auction that meets those parameters. Auction data collection is what will allow Auction Hunter to be useful to buyers.
+
+\vspace{3mm}To gather reliable data Auction Hunter will continually search multiple auction websites that sell Teslas. Using website crawler technology web images and data will be collected from eBay Motors, ADESA, Auction Auto Mall, Dashub, A better bid, Salvage bid, Smart Auction, OVE.com, Auto Trader, and Insurance Auctions USA Inc. Web crawler is a kind of script which will follow a special set of rules to automatically gather information from website. These sites offer APIs to allow programmatic interaction with their dataset and Auction Hunter will use that to download and analyze every Tesla auction they have listed. Auction Hunter will then display its results via a website that buyers can use to browse past auctions as well as setup alerts for future ones that match their criteria. As Auction Hunter collects this data and stores it in its own database it will be able to start to generate statistics and averages for varies data points. This will primarily focus on classifying value (price) for different types of damage to vehicles as well as different options and wear and tear that car has on it. The buyer will be able to look and these pieces of data and use them to determine what auctions they should bid on. They will then be able to narrow their search with selected parameters and filters. The data can be sorted by price(from high to low, low to high, or select a price range), distance, VIN (presence or absence of VIN will be divided into two categories), year, model, title, and mileage. Once the buyer sets the parameters Auction Hunter will then need to monitor all upcoming auctions and see if any match the set parameters. 
+
+\vspace{3mm}Finally, to help in identifying what kinds of repairs will be needed, and thus the cost of them, Auction Hunter will also need to access the damage to the Telsa being sold at auction. Unfortunately, there is only a limited set of information about the exact damage to the car posted online. Auction Hunter will therefore need to use the images taken of the Tesla by the auction sites as the main source of information for determining repair costs. This will likely mean that Auction Hunter will need to use some sort of image recognition software to understand the types of damage done to the vehicle. One likely option is to have Auction Hunter use of machine learning to process the images. In addition, a human element also could be used at the final step in the process. The Auction Hunter program could eliminate the bottom 95\% of cars, then present the pictures of the top 5\% to the user to manually evaluate. A UI will have to be created to display these to a user along with related information about the car, and whatever metrics Auction Hunter used. 
+
+\newpage
+
+\section{Performance Metrics}
+To be considered complete the team behind Auction Hunter will need to have completed a working prototype
+of the site. The goal is to then have a functioning website that a buyer can use to complete their purchase. This will encompass: the backend data collection of the auction sites, analytics on the collected data to recommend alert parameters, and alert and bidding on auctions. All three of these key functions should be accessible through the website. For the data collection to be considered done it must be able to find auctions coming up and then query the auction sites APIs and download all available data on the car. This includes at least the vin number, model, year, descriptions, and photos of the car up for each auction. Once that is complete Auction Hunter must then analyze that data. Auction Hunter should be able to classify what types of damage the car has sustained and use that to generate a value for each car at auction. The analytics can then be compared to past auctions to determine how accurate it is. The best way to quantify the effectiveness of the Auction Hunter program is have it predict the final sale price of a car without taking into account the initial asking price. This will most likely be the most difficult part of the project. Determining the effectiveness of the value calculator is more difficult, because it would require manually evaluating the car and estimating how accurate it is. Finally, for the alert system to be considered fully featured it must be able to complete every step in the process from alerting the buyer to an auction right up to bidding on it.
+
+\end{document}
