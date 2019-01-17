@@ -9,34 +9,35 @@ def main():
     #post data
     posts = db.posts
     post_data = {
-        'title': 'Python and MongoDB',
-        'content': 'PyMongo is fun, you guys',
-        'author': 'Scott'
+        'make': 'Ford',
+        'model': 'Focus',
+        'year': '2012',
+        'color': 'Red',
+        'damage': 'lots'
     }
     result = posts.insert_one(post_data)
     pprint(result)
     print('One post: {0}'.format(result.inserted_id))
 
     post_1 = {
-    'title': 'Python and MongoDB',
-    'content': 'PyMongo is fun, you guys',
-    'author': 'Scott'
+        'make': 'Honda',
+        'model': 'Civic',
+        'year': '2014',
+        'color': 'Black',
+        'damage': 'none'
     }
     post_2 = {
-        'title': 'Virtual Environments',
-        'content': 'Use virtual environments, you guys',
-        'author': 'Scott'
+        'make': 'Toyota',
+        'model': 'Corolla',
+        'year': '2013',
+        'color': 'Blue',
+        'damage': 'minimal'
     }
-    post_3 = {
-        'title': 'Learning Python',
-        'content': 'Learn Python, it is easy',
-        'author': 'Bill'
-    }
-    result = posts.insert_many([post_1, post_2, post_3])
+    result = posts.insert_many([post_1, post_2])
     print('Multiple posts: {0}'.format(result.inserted_ids))
 
     #Retrieve data
-    retrive_post = posts.find_one({"author": "Bill"})
+    retrive_post = posts.find_one({"author": "Honda"})
     print(retrive_post)
 
 if __name__ == "__main__":

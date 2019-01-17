@@ -10,3 +10,6 @@ Then:
   install mongoDB, then start the mongo.exe
 
 
+
+https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-ubuntu/
+https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-windows/
