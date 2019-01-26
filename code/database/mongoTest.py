@@ -58,63 +58,29 @@ class Database:
         return result 
 
     def getVehicle(self, vin):
-        retrieve_post = self.posts.find_one({"vin": vin})
+        retrieve_post = self.posts.find_one({"vin": int(vin)})
         return retrieve_post
 
 def main():
     database = Database("localhost", 27017)
     database.establishConnection()
 
+    #Create a condition object
     condition1 = Condition("Collision", "Right Side", "None", "Runs", "Present", "Standard Wheels and spare present", "Deployed")
+    #Create a vehicle object with the condition1 attribute
     vehicle1 = Vehicle(1234512345, "Ford", "Focus", "SE", 2012, "Hatchback", "Standard", "Red", 34242, condition1)
 
+    #Add the vehicle to the database
     result = database.addVehicle(vehicle1)
     print(result)
-    print('One post: {0}'.format(result.inserted_id))
+    #print('One post: {0}'.format(result.inserted_id))
 
+    #Get a vehicle based on the VIN
     result = database.getVehicle("1234512345")
+    #Print the whole thing
     print(result)
-    print('One post: {0}'.format(result.inserted_id))
-
-def main2():
-
-    #Establish connection
-    client = MongoClient("localhost", 27017)
-    #Access Database
-    db = client.admin
-    #post data
-    posts = db.posts
-    post_data = {
-        'make': 'Ford',
-        'model': 'Focus',
-        'year': '2012',
-        'color': 'Red',
-        'damage': 'lots'
-    }
-    result = posts.insert_one(post_data)
-    print(result)
-    print('One post: {0}'.format(result.inserted_id))
-
-    post_1 = {
-        'make': 'Honda',
-        'model': 'Civic',
-        'year': '2014',
-        'color': 'Black',
-        'damage': 'none'
-    }
-    post_2 = {
-        'make': 'Toyota',
-        'model': 'Corolla',
-        'year': '2013',
-        'color': 'Blue',
-        'damage': 'minimal'
-    }
-    result = posts.insert_many([post_1, post_2])
-    print('Multiple posts: {0}'.format(result.inserted_ids))
-
-    #Retrieve data
-    retrive_post = posts.find_one({"author": "Honda"})
-    print(retrive_post)
+    #Print certain attributes
+    print(result.get("make") + " , " + result.get("model") + " ," + str(result.get("year")))
 
 if __name__ == "__main__":
     main()
