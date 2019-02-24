@@ -57,9 +57,25 @@ class Database:
         result = self.posts.insert_one(post_data)
         return result 
 
-    def getVehicle(self, vin):
+    def printEntry(self, entry, verbose=False):
+        if(verbose):
+            print("vin:" + str(entry.get("vin")) + " " + entry.get("exteriorColor") + " " + entry.get("make") + " " + entry.get("model")
+            + " " + str(entry.get("year")))
+        else:
+            print(entry.get("make") + " " + entry.get("model")
+            + " " + str(entry.get("year")))
+
+    def getVehicleByVin(self, vin):
         retrieve_post = self.posts.find_one({"vin": int(vin)})
         return retrieve_post
+
+    def getAllVehicles(self):
+        retrieve_cursor = self.posts.find()
+        return retrieve_cursor
+
+    def getVehiclesGTYear(self, year):
+        retrieve_cursor = self.posts.find({"year": {"$gt": int(year)}})
+        return retrieve_cursor
 
 def main():
     database = Database("localhost", 27017)
