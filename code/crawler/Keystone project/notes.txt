@@ -1,0 +1,28 @@
+
+https://www.youtube.com/watch?v=5cstRCeFDkY&list=LLu5DrBWP9WIQLjEllOB9BkA&index=5&t=0s    //set up for environment
+open Anaconda Prompt
+cd desktop
+cd keystone project
+cd tutorial
+
+
+scrapy shell "https://www.iaai.com/Search?url=pd6JWbJ9kRzcBdFK3vKeyhemMpm/KU7A3DtM+lH1s0yxTvF4GlWIr4FPc5g5DUFcr6s73QlyLnPM1uEFyE8r/8U74e14sBFxzJttfS/ZQnHDptNLYoLCwzB0wylNtXev/TRixgyK1p4rOgh5ssc3rw==&crefiners=&keyword="                //windows user uses double quotes instead of single quotes.
+
+names = response.xpath('//*[(@id = "dvSearchList")]//h4/text()').getall()     //record current page's name of car
+names
+
+images = response.xpath('//*[contains(concat( " ", @class, " " ), concat( " ", "lazy", " " ))]').getall()    //get() will extract only the first matched element.
+images
+
+BidTime = response.xpath('td:nth-child(6) p:nth-child(1)').getall()
+
+
+2/20
+from urllib.parse import urljoin
+https://stackoverflow.com/questions/44913798/use-scrapy-to-get-list-of-urls-and-then-scrape-content-inside-those-urls
+
+https://doc.scrapy.org/en/latest/intro/tutorial.html#following-links         //following-links
+
+//css method names
+
+response.css('#dvSearchList h4::text').getall()
