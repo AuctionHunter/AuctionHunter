@@ -92,7 +92,7 @@ def main():
     #print('One post: {0}'.format(result.inserted_id))
 
     #Get a vehicle based on the VIN
-    result = database.getVehicle("1234512345")
+    result = database.getVehicleByVin("1234512345")
     #Print the whole thing
     print(result)
     #Print certain attributes
