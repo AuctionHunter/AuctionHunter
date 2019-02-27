@@ -98,9 +98,13 @@ FEED_URI = "iaai.csv"
 
 #In order to use the images pipeline  to download images, it needs to be enabled in the settings.py file. Add the following lines to the file :
 ITEM_PIPELINES = {
-  'scrapy.pipelines.images.ImagesPipeline': 1
+  'pipelines.MongoPipeline': 1
 }
 IMAGES_STORE = 'tmp/images/'
+
+MONGO_URI="localhost"
+MONGO_DATABASE="scrapy"
+
 
 
 
