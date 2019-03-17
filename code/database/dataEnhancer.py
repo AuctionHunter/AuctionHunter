@@ -1,8 +1,4 @@
 from pymongo import MongoClient
-from sshtunnel import SSHTunnelForwarder
-import time
-import sys
-
 
 class Database:
 
@@ -51,34 +47,9 @@ class Database:
         return retrieve_cursor
 
 def main():
-    #database = Database("localhost", 27017)
-    #database.establishConnection()
+    database = Database("localhost", 27017)
+    database.establishConnection()
 
-    MONGO_HOST = "theorange.institute"
-    MONGO_DB = "scrapy"
-    MONGO_USER = "hullale"
-    MONGO_PASS = "unhackable"
-
-    server = SSHTunnelForwarder(
-    MONGO_HOST,
-    ssh_username=MONGO_USER,
-    ssh_port=22,
-    ssh_password=MONGO_PASS,    
-    remote_bind_address=('localhost', 27017)
-    )
-
-    server.start()
-    time.sleep(2)
-
-    print(server.local_bind_port)
-
-    client = MongoClient('localhost', server.local_bind_port)
-    
-    #db = client[MONGO_DB]
-    db = client.admin
-    posts = db.posts
-
-    result_cursor = posts.find()
     #result_cursor = database.getAllVehicles()
     #iterate over the data retrieved and print
     count = result_cursor.collection.count_documents({})
@@ -88,8 +59,6 @@ def main():
         #database.printEntry(current_entry)
         print("vin:" + str(current_entry.get("vin")) + " " + current_entry.get("exteriorColor") + " " + current_entry.get("make") + " " + 
         current_entry.get("model") + " " + str(current_entry.get("year")))
-
-    server.stop()
 
 
 
