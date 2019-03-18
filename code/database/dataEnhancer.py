@@ -1,53 +1,62 @@
 from pymongo import MongoClient
+from mongoTest import Database
 
-class Database:
+class DataEnhancer:
+    #milesWeight ~= 0-30
+    #damageWeight ~= 0-10
+    def __init__(self, milesWeight, damageWeight):
+        self.milesWeight = milesWeight
+        self.damageWeight = damageWeight
 
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
-        self.client = MongoClient(host, port)
-    
-    def establishConnection(self):
-        self.client = MongoClient(self.host, self.port)
-        self.db = self.client.admin
-        self.posts = self.db.posts
-
-    def addVehicle(self, vehicle):
-        post_data = {
-            'vin': vehicle.vin,
-            'make': vehicle.make,
-            'model': vehicle.model,
-            'series': vehicle.series,
-            'year': vehicle.year,
-            'bodyStyle': vehicle.bodyStyle,
-            'transmission': vehicle.transmission,
-            'exteriorColor': vehicle.exteriorColor,
-            'odometer': vehicle.odometer,
-            'typeDamage': vehicle.condition.typeDamage,
-            'primaryDamageLocation': vehicle.condition.primaryDamageLocation,
-            'secondaryDamageLocation': vehicle.condition.secondaryDamageLocation,
-            'startCode': vehicle.condition.startCode,
-            'keyFOB': vehicle.condition.keyFOB,
-            'wheels': vehicle.condition.wheels,
-            'airbags': vehicle.condition.airbags
-        }
-        result = self.posts.insert_one(post_data)
-        return result 
-
-    def printEntry(self, entry, verbose=False):
-        if(verbose):
-            print("vin:" + str(entry.get("vin")) + " " + entry.get("exteriorColor") + " " + entry.get("make") + " " + entry.get("model")
-            + " " + str(entry.get("year")))
+    #Return miles as an int in thousands of miles
+    def parseMiles(self, milesString):
+        sanitizedString = milesString.strip().split("k")[0]
+        #Sometimes entry is 0-1, which we assume to be 0
+        if("-" in sanitizedString):
+            return 0
         else:
-            print(entry.get("make") + " " + entry.get("model")
-            + " " + str(entry.get("year")))
+            return int(milesString.strip().split("k")[0])
 
-    def getAllVehicles(self):
-        retrieve_cursor = self.posts.find()
-        return retrieve_cursor
+    #return damage value of -5 to 0. 
+    def parseDamage(self, damageString):
+        damageValue = 0
+        if("Collision" in damageString):
+            damageValue += 1
+        if("FRONT" in damageString):
+            damageValue += 1
+        if("REAR" in damageString):
+            damageValue += 1
+        if("SIZE" in damageString):
+            damageValue += 1
+        if("ENGINE" in damageString):
+            damageValue += 3
+
+        return damageValue
+
+    def getValueEstimation(self, entry):
+        milesString = str(entry.get("miles"))
+        damageString = str(entry.get("primary damage"))
+        
+        miles = self.parseMiles(milesString)
+        damage = self.parseDamage(damageString)
+
+        #initial value of 50     
+        value = 50
+        #Add or subtract value based on miles and milesWeight. 
+        #If miles=0k, add milesWeight value, if miles=150k subtract milesWeight. 
+        #If miles=75k, don't change value. 
+        value -= ((miles*2)/150.0 - 1)*self.milesWeight
+
+        #Damage from 0 to 5(most impactful damage) 
+        value -= damage*(self.damageWeight/2.0)
+        
+        return value
+
 
 def main():
     database = Database("localhost", 27017)
+    enhancer = DataEnhancer(20,10)
+
     database.establishConnection()
 
     result_cursor = database.getAllVehicles()
@@ -55,7 +64,12 @@ def main():
     count = result_cursor.collection.count_documents({})
     for x in range(count):
         current_entry = result_cursor.next()
-        database.printEntry(current_entry)
+        database.printEntry(current_entry, False)
+        #print(enhancer.parseMiles(str(current_entry.get("miles"))))
+        #print(enhancer.parseDamage(str(current_entry.get("primary damage"))))
+        value = enhancer.getValueEstimation(current_entry)
+        currentVin = current_entry.get("vin")
+        database.scrapy_items.update_one({"vin": currentVin}, {"$set": {"value_est": value}})
 
 if __name__ == "__main__":
     main()
