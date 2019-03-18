@@ -50,17 +50,12 @@ def main():
     database = Database("localhost", 27017)
     database.establishConnection()
 
-    #result_cursor = database.getAllVehicles()
+    result_cursor = database.getAllVehicles()
     #iterate over the data retrieved and print
     count = result_cursor.collection.count_documents({})
-    print(count)
     for x in range(count):
         current_entry = result_cursor.next()
-        #database.printEntry(current_entry)
-        print("vin:" + str(current_entry.get("vin")) + " " + current_entry.get("exteriorColor") + " " + current_entry.get("make") + " " + 
-        current_entry.get("model") + " " + str(current_entry.get("year")))
-
-
+        database.printEntry(current_entry)
 
 if __name__ == "__main__":
     main()
