@@ -98,7 +98,7 @@ FEED_URI = "iaai.csv"
 
 #In order to use the images pipeline  to download images, it needs to be enabled in the settings.py file. Add the following lines to the file :
 ITEM_PIPELINES = {
-  'pipelines.MongoPipeline': 1
+  'tutorial.pipelines.MongoPipeline': 1
 }
 IMAGES_STORE = 'tmp/images/'
 
