@@ -32,8 +32,8 @@ class Database:
     
     def establishConnection(self):
         self.client = MongoClient(self.host, self.port)
-        self.db = self.client.admin
-        self.posts = self.db.posts
+        self.db = self.client.scrapy
+        self.scrapy_items = self.db.scrapy_items
 
     def addVehicle(self, vehicle):
         post_data = {
@@ -54,27 +54,33 @@ class Database:
             'wheels': vehicle.condition.wheels,
             'airbags': vehicle.condition.airbags
         }
-        result = self.posts.insert_one(post_data)
+        result = self.scrapy_items.insert_one(post_data)
         return result 
 
-    def printEntry(self, entry, verbose=False):
+    def printEntryDeprecated(self, entry, verbose=False):
         if(verbose):
             print("vin:" + str(entry.get("vin")) + " " + entry.get("exteriorColor") + " " + entry.get("make") + " " + entry.get("model")
             + " " + str(entry.get("year")))
         else:
             print(entry.get("make") + " " + entry.get("model")
             + " " + str(entry.get("year")))
+    
+    def printEntry(self, entry, verbose=False):
+        if(verbose):
+            print(str(entry.get("vin")) + " " + str(entry.get("miles")) + " " + str(entry.get("car name")) + " " + str(entry.get("primary damage")))
+        else:
+            print(str(entry.get("car name")))
 
     def getVehicleByVin(self, vin):
-        retrieve_post = self.posts.find_one({"vin": int(vin)})
+        retrieve_post = self.scrapy_items.find_one({"vin": int(vin)})
         return retrieve_post
 
     def getAllVehicles(self):
-        retrieve_cursor = self.posts.find()
+        retrieve_cursor = self.scrapy_items.find()
         return retrieve_cursor
 
     def getVehiclesGTYear(self, year):
-        retrieve_cursor = self.posts.find({"year": {"$gt": int(year)}})
+        retrieve_cursor = self.scrapy_items.find({"year": {"$gt": int(year)}})
         return retrieve_cursor
 
 def main():
