@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Progress}{2}
+\contentsline {subsection}{\numberline {2.1}Web Interface Progress}{3}
+\contentsline {subsection}{\numberline {2.2}Web Scraper Progress}{4}
+\contentsline {section}{\numberline {3}Future Plans}{5}
+\contentsline {subsection}{\numberline {3.1}Web Interface Advancements}{5}
+\contentsline {subsection}{\numberline {3.2}Database Advancements}{5}
+\contentsline {subsection}{\numberline {3.3}Web Crawler Advancements}{6}
+\contentsline {section}{\numberline {4}Problems}{6}
+\contentsline {section}{\numberline {5}Code Snippets}{6}
+\contentsline {subsection}{\numberline {5.1}Web Scraper}{6}
+\contentsline {subsection}{\numberline {5.2}Database and Value Calculation}{7}
+\contentsline {subsection}{\numberline {5.3}Web Interface}{7}
+\contentsline {section}{References}{8}
