@@ -6,12 +6,21 @@ class RedditbotSpider(scrapy.Spider):
     name = 'iaaibot'
     start_urls = ['https://www.iaai.com/Search?url=pd6JWbJ9kRzcBdFK3vKeyhemMpm/KU7A3DtM+lH1s0yxTvF4GlWIr4FPc5g5DUFcr6s73QlyLnPM1uEFyE8r/8U74e14sBFxzJttfS/ZQnHDptNLYoLCwzB0wylNtXev/TRixgyK1p4rOgh5ssc3rw==&crefiners=|vehicletype:Automobiles']
 
-    def parse_page(self, reponse):
+    def parse_page(self, response):
         #parse info for particular auction entry page
-        estimated_price = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")[3].extract()
-        repair_costs = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")[5].extract()
+        price_raw = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")
 
-        price_info = [estimated_price,repair_costs]
+        if(len(price_raw) >= 6):
+            estimated_price = price_raw[3].extract()
+            repair_costs = price_raw[5].extract()
+        else:
+            estimated_price = "null"
+            repair_costs = "null"
+
+        price_info = {
+            'estimated price' : estimated_price,
+            'repair costs': repair_costs
+        }
         #yield or give the scraped info to scrapy
         return price_info
 
@@ -26,15 +35,16 @@ class RedditbotSpider(scrapy.Spider):
         #link parsing
         table = response.css('table.table')
         rows = table.xpath("//tbody//tr")
-
+        #price_info = []
+        
         for entry in rows:
             url = entry.xpath("td//@href")[1].extract()
 
             if url is not None:
-                price_info += response.follow(url, self.parse_page)
+                yield response.follow(url, self.parse_page)
 
         #Give the extracted content row wise
-        i = 0
+        #i = 0
         for item in zip(CarName,Miles,Vin,PrimaryDamage,CarImage):
             #create a dictionary to store the scraped info
             scraped_info = {
@@ -43,11 +53,11 @@ class RedditbotSpider(scrapy.Spider):
                 'vin':item[2],
                 'primary damage':item[3],
                 'car image' : item[4], #Set's the url for scrapy to download images
-                'estimated price' : price_info[i],
-                'repair costs' : price_info[i+1]
+                #'estimated price' : price_info[i],
+                #'repair costs' : price_info[i+1]
             }
-            if((i+1)<len(price_info)):
-                i+=2
+            #if((i+1)<len(price_info)):
+            #    i+=2
             #yield or give the scraped info to scrapy
             yield scraped_info
 
