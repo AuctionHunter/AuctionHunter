@@ -8,6 +8,12 @@ class RedditbotSpider(scrapy.Spider):
 
     def parse_page(self, response):
         #parse info for particular auction entry page
+
+        #get previously scraped image link and vin from meta attribute 
+        image_and_vin = response.meta['image_and_vin']
+        vin = image_and_vin[0]
+        car_image = image_and_vin[1]
+
         price_raw = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")
         title = response.xpath('//h1[@class="pd-title-ymm"]/text()')[0].extract()
         body = response.xpath('//*[@id="vehicletabDiv"]/div[5]/div[2]/p/text()')[0].extract()
@@ -31,14 +37,14 @@ class RedditbotSpider(scrapy.Spider):
             'estimated price' : estimated_price,
             'car name' : title,
             'miles':miles,
-            #'vin':vin,
+            'vin':vin,
             'body' : body,
             'primary damage':primary_damage,
             'secondary damage':secondary_damage,
             'start code' : start_code,
             'key fob' : key_fob,
             'airbags' : airbags,
-            #'car image' : car_image,
+            'car image' : car_image,
             'url' : response.request.url,
         }
         #yield or give the scraped info to scrapy
@@ -62,7 +68,10 @@ class RedditbotSpider(scrapy.Spider):
             #url.replace("..", "https://www.iaai.com")
             i += 1
             if url is not None:
-                yield response.follow(url, self.parse_page)
+                request = scrapy.Request(url, self.parse_page)
+                #pass image and vin as meta attribute
+                request.meta['image_and_vin'] = [CarImage[i], Vin[i]]
+                yield request
 
 #        #Give the extracted content row wise
 #        for item in zip(CarName,Miles,Vin,PrimaryDamage,CarImage, url):
