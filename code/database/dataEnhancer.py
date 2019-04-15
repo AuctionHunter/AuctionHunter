@@ -10,12 +10,13 @@ class DataEnhancer:
 
     #Return miles as an int in thousands of miles
     def parseMiles(self, milesString):
-        sanitizedString = milesString.strip().split("k")[0]
+        sanitizedString = milesString.strip().split("mi")[0].replace(",","")
         #Sometimes entry is 0-1, which we assume to be 0
-        if("-" in sanitizedString):
+        if("-" in sanitizedString or not any(i.isdigit() for i in milesString)):
             return 0
         else:
-            return int(milesString.strip().split("k")[0])
+            return int(milesString.strip().split("mi")[0].replace(",",""))
+       
 
     #return damage value of -5 to 0. 
     def parseDamage(self, damageString):
@@ -45,7 +46,7 @@ class DataEnhancer:
         #Add or subtract value based on miles and milesWeight. 
         #If miles=0k, add milesWeight value, if miles=150k subtract milesWeight. 
         #If miles=75k, don't change value. 
-        value -= ((miles*2)/150.0 - 1)*self.milesWeight
+        value -= ((miles*2)/150000.0 - 1)*self.milesWeight
 
         #Damage from 0 to 5(most impactful damage) 
         value -= damage*(self.damageWeight/2.0)
