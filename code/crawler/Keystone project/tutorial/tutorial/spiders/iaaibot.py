@@ -14,6 +14,13 @@ class RedditbotSpider(scrapy.Spider):
         vin = image_and_vin[1]
         car_image = image_and_vin[0]
 
+        prices = response.xpath("//*[@id='vehicles-container']/div[2]/div[2]/div[2]/div[1]/div[2]/ul/li[2]/span/text()").extract()
+        estimated_price = "0"
+        for text in prices:
+            if "ACV" in text or "ERC" in text:
+                estimated_price = text
+                estimated_price = ''.join(x for x in text if x.isdigit())
+
         price_raw = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")
         title = response.xpath('//h1[@class="pd-title-ymm"]/text()')[0].extract()
         body = response.xpath('//*[@id="vehicletabDiv"]/div[5]/div[2]/p/text()')[0].extract()
@@ -28,10 +35,6 @@ class RedditbotSpider(scrapy.Spider):
         except IndexError:
             airbags = "Deployed"
 
-        if(len(price_raw) >= 4):
-            estimated_price = price_raw[3].extract()
-        else: 
-            estimated_price = "Sold"
 
         info = {
             'estimated price' : estimated_price,
