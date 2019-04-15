@@ -6,7 +6,7 @@ class RedditbotSpider(scrapy.Spider):
     name = 'iaaibot'
     start_urls = ['https://www.iaai.com/Search?url=pd6JWbJ9kRzcBdFK3vKeyhemMpm/KU7A3DtM+lH1s0yxTvF4GlWIr4FPc5g5DUFcr6s73QlyLnPM1uEFyE8r/8U74e14sBFxzJttfS/ZQnHDptNLYoLCwzB0wylNtXev/TRixgyK1p4rOgh5ssc3rw==&crefiners=|vehicletype:Automobiles']
 
-    def parse_page(self, response, car_image, vin):
+    def parse_page(self, response):
         #parse info for particular auction entry page
         price_raw = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")
         title = response.xpath('//h1[@class="pd-title-ymm"]/text()')[0].extract()
@@ -17,25 +17,28 @@ class RedditbotSpider(scrapy.Spider):
         miles = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[6]/div[2]/p/span/text()')[0].extract()
         start_code = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[7]/div[2]/p/span/text()')[0].extract()
         key_fob = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[8]/div[2]/p/span/text()')[0].extract()
-        airbags = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[10]/div[2]/p/span/text()')[0].extract()
+        try:
+            airbags = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[10]/div[2]/p/span/text()')[0].extract()
+        except IndexError:
+            airbags = "Deployed"
 
         if(len(price_raw) >= 4):
             estimated_price = price_raw[3].extract()
         else: 
-            estimated_price = "null"
+            estimated_price = "Sold"
 
         info = {
             'estimated price' : estimated_price,
             'car name' : title,
             'miles':miles,
-            'vin':vin,
+            #'vin':vin,
             'body' : body,
             'primary damage':primary_damage,
             'secondary damage':secondary_damage,
-            'start code' = start_code
-            'key fob' = key_fob
-            'airbags' = airbags
-            'car image' : car_image
+            'start code' : start_code,
+            'key fob' : key_fob,
+            'airbags' : airbags,
+            #'car image' : car_image,
             'url' : response.request.url,
         }
         #yield or give the scraped info to scrapy
@@ -59,7 +62,7 @@ class RedditbotSpider(scrapy.Spider):
             #url.replace("..", "https://www.iaai.com")
             i += 1
             if url is not None:
-                yield response.follow(url, self.parse_page, CarImage[i], Vin[i])
+                yield response.follow(url, self.parse_page)
 
 #        #Give the extracted content row wise
 #        for item in zip(CarName,Miles,Vin,PrimaryDamage,CarImage, url):
