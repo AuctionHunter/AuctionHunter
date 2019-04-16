@@ -21,18 +21,31 @@ class RedditbotSpider(scrapy.Spider):
                 estimated_price = text
                 estimated_price = ''.join(x for x in text if x.isdigit())
 
-        price_raw = response.xpath("//ul[contains(@class, 'list-sale-info')]//li//span//text()")
         title = response.xpath('//h1[@class="pd-title-ymm"]/text()')[0].extract()
         body = response.xpath('//*[@id="vehicletabDiv"]/div[5]/div[2]/p/text()')[0].extract()
         body = ' '.join(body.split())
-        primary_damage = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[3]/div[2]/p/span/text()')[0].extract()
-        secondary_damage = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[5]/div[2]/p/span/text()')[0].extract()
-        miles = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[6]/div[2]/p/span/text()')[0].extract()
-        start_code = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[7]/div[2]/p/span/text()')[0].extract()
-        key_fob = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[8]/div[2]/p/span/text()')[0].extract()
+
         try:
-            airbags = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[10]/div[2]/p/span/text()')[0].extract()
+            primary_damage = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[4]/div[2]/p/span/text()')[0].extract()
+            secondary_damage = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[5]/div[2]/p/span/text()')[0].extract()
+            #if there is no secondary damage, this will be replaced with the odometer
+            if "mi" in secondary_damage:
+                secondary_damage = "none"
+                miles = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[5]/div[2]/p/span/text()')[0].extract()
+                start_code = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[6]/div[2]/p/span/text()')[0].extract()
+                key_fob = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[7]/div[2]/p/span/text()')[0].extract()
+                airbags = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[9]/div[2]/p/span/text()')[0].extract()
+            else:
+                miles = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[6]/div[2]/p/span/text()')[0].extract()
+                start_code = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[7]/div[2]/p/span/text()')[0].extract()
+                key_fob = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[8]/div[2]/p/span/text()')[0].extract()
+                airbags = response.xpath('//*[@id="vehicles-container"]/div[2]/div[1]/div[2]/div[10]/div[2]/p/span/text()')[0].extract()
         except IndexError:
+            primary_damage = "none"
+            secondary_damage = "none"
+            miles = "100,000 mi (not required/exept"
+            start_code = "Run & Drive "
+            key_fob = "Present"
             airbags = "Deployed"
 
         info = {
