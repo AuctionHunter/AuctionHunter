@@ -4,7 +4,7 @@ import scrapy
 
 class RedditbotSpider(scrapy.Spider):
     name = 'iaaibot'
-    start_urls = ['https://www.iaai.com/Search?url=pd6JWbJ9kRzcBdFK3vKeyhemMpm/KU7A3DtM+lH1s0yxTvF4GlWIr4FPc5g5DUFcr6s73QlyLnPM1uEFyE8r/8U74e14sBFxzJttfS/ZQnHDptNLYoLCwzB0wylNtXev/TRixgyK1p4rOgh5ssc3rw==&crefiners=|vehicletype:Automobiles']
+    start_urls = ['https://www.iaai.com/Search?url=pd6JWbJ9kRzcBdFK3vKeyhemMpm/KU7A3DtM+lH1s0yxTvF4GlWIr4FPc5g5DUFcr6s73QlyLnPM1uEFyE8r/2ULidMlH7kMLaYTJ+6F+ypqJKrj/BB5+adRv3mhMcDQcB8kCi+dTs/qULqT8w3o6w==&crefiners=|vehicletype:Automobiles&keyword=']
 
     def parse_page(self, response):
         #parse info for particular auction entry page
