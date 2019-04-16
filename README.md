@@ -10,9 +10,9 @@
 ## Client 
 Ryan Kalb
 
-## How to run
+# How to run
 
-# Prerequisites
+## Prerequisites
 
 Installation is different for each operating system, so the instructions provided on each website for desired OS should be followed. 
 
@@ -24,7 +24,7 @@ MongoDB: https://docs.mongodb.com/manual/administration/install-community/
 MongoDB compass: https://docs.mongodb.com/compass/master/install/
 
 
-# Demo 
+## Demo 
 
 0. Start MongoDB compass community (the gui verson that is an included add on to mongodb), new connection to hostname: localhost, port: 27017. 
 1. Navigate to AuctionHunter/Code/crawler/'Keystone Project'/tutorial/tutorial/spiders
