@@ -35,19 +35,18 @@ class RedditbotSpider(scrapy.Spider):
         except IndexError:
             airbags = "Deployed"
 
-
         info = {
-            'estimated price' : estimated_price,
-            'car name' : title,
+            'estimated_price' : estimated_price,
+            'car_name' : title,
             'miles':miles,
             'vin':vin,
             'body' : body,
-            'primary damage':primary_damage,
-            'secondary damage':secondary_damage,
-            'start code' : start_code,
-            'key fob' : key_fob,
+            'primary_damage':primary_damage,
+            'secondary_damage':secondary_damage,
+            'start_code' : start_code,
+            'key_fob' : key_fob,
             'airbags' : airbags,
-            'car image' : car_image,
+            'car_image' : car_image,
             'url' : response.request.url,
         }
         #yield or give the scraped info to scrapy
@@ -72,7 +71,7 @@ class RedditbotSpider(scrapy.Spider):
             if url is not None:
                 request = scrapy.Request(url, self.parse_page)
                 #pass image and vin as meta attribute
-                request.meta['image_and_vin'] = [CarImage[i], Vin[i]]
+                request.meta['image_and_vin'] = [CarImage[i].split('\"')[1], Vin[i]]
                 yield request
             i+=1
 

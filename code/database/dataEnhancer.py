@@ -36,7 +36,7 @@ class DataEnhancer:
 
     def getValueEstimation(self, entry):
         milesString = str(entry.get("miles"))
-        damageString = str(entry.get("primary damage"))
+        damageString = str(entry.get("primary_damage"))
         
         miles = self.parseMiles(milesString)
         damage = self.parseDamage(damageString)
