@@ -67,9 +67,9 @@ class Database:
     
     def printEntry(self, entry, verbose=False):
         if(verbose):
-            print(str(entry.get("vin")) + " " + str(entry.get("miles")) + " " + str(entry.get("car name")) + " " + str(entry.get("primary damage")))
+            print(str(entry.get("vin")) + " " + str(entry.get("miles")) + " " + str(entry.get("car_name")) + " " + str(entry.get("primary_damage")))
         else:
-            print(str(entry.get("car name")))
+            print(str(entry.get("car_name")))
 
     def getVehicleByVin(self, vin):
         retrieve_post = self.scrapy_items.find_one({"vin": int(vin)})
