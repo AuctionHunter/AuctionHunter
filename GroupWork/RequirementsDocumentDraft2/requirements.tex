@@ -8,7 +8,7 @@
 \usepackage{pgfgantt}
 \geometry{textheight=9.5in, textwidth=7in}
 
-
+\renewcommand{\arraystretch}{1.7}
 
 % 1. Fill in these details
 \def \CapstoneTeamName{		Auction Hunter}
@@ -82,6 +82,21 @@
 %\listoftables
 \clearpage
 
+
+\section{Change Log}
+\begin{table}[!h]
+\begin{tabular}{p{4cm}|p{5cm}|p{7cm}}
+Section & Original & New \\
+\cline{1-3}
+Definitions       & Mentioned Teslas specifically        & Removed all mentions of Teslas. Replaced general "vehicles"   \\
+System Requirements       & Mentioned Teslas specifically        & Removed all mentions of Teslas. Replaced general "vehicles"    \\
+User stories       & Mentioned Teslas specifically        & Removed all mentions of Teslas. Removed mention of automatically bidding functionality. Removed machine learning functionality. Removed "scrape from IAAI" and replace with "extendable to scrape from other sources" \\
+     Functional requirements   &    Query Copart and IAAI API's      &   Replace API with web scraping. Added Damage information, start code, key presence, and link to original posting. Removed live auction tracking. Remove automatic auction bidding. Removed machine learning component.  \\
+   Performance requirements     &       Automatic bidding   &  Removed automatic bidding perfomrance requirement. Removed automatic bidding requirement and notifications. Removed Copart.   \\
+     Testing   &     Section detailing how we will test the accuracy of value prediction by comparing to listed value.  & Removed section. \\
+     Continuous integration & Section on building a continuous integration system that tests the project each time a commit is made to master branch. & Removed continuous integration section. 
+\end{tabular}
+\end{table}
 
 
 
