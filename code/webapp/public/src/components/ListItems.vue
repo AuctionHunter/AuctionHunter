@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div class="col-md-12" v-show="todos.length>0">
+        <div class="col-md-12" v-show="auctionItems.length>0">
             <h3>Auction Hunter</h3>
-            <div class="row mrb-10" v-for="todo in todos">
+            <div class="row mrb-10" v-for="auctionItem in auctionItems">
                 <div class="input-group m-b-5">
-                    <p>{{todo.car_name}}</p>
+                    <p>{{auctionItem.car_name}}</p>
+                    <p>{{auctionItem.body}}</p>
                 </div>
             </div>
         </div>
@@ -18,23 +19,23 @@
     export default {
         data() {
             return {
-                todos: []
+                auctionItems: []
             }
         },
-        created: function() { // get todo items and start listening to events once component is created
-            this.fetchTodo();
+        created: function() {
+            this.fetchItems();
             this.listenToEvents();
         },
         methods: {
-            fetchTodo() {
+            fetchItems() {
                 let uri = 'http://localhost:8080/api/all';
                 axios.get(uri).then((response) => {
-                    this.todos = response.data;
+                    this.auctionItems = response.data;
                 });
             },
             listenToEvents() {
                 bus.$on('refreshTodo', ($event) => {
-                    this.fetchTodo(); // referesh or update todo list on the page
+                    this.fetchItems();
                 })
             }
         }
@@ -42,9 +43,6 @@
 </script>
 <style scoped>
     .delete__icon {}
-    .todo__done {
-        text-decoration: line-through !important
-    }
     .no_border_left_right {
         border-left: 0px;
         border-right: 0px;

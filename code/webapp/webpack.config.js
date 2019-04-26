@@ -1,18 +1,21 @@
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
-
+  mode: 'development',
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   entry: './public/src/main.js',
   output: {
-    filename: './public/build/bundle.js'
+    filename: 'bundle.js',
+    path: __dirname + '/public/build/'
   },
   resolve: {
-
     alias: {
       vue: './vue.js'
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: [
           'vue-style-loader',
@@ -22,8 +25,7 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-          }
+          loaders: {}
           // other vue-loader options go here
         }
       },
