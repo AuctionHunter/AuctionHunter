@@ -3,11 +3,10 @@ import Vue from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App.vue'
 
+Vue.prototype.$eventHub = new Vue();
+
 new Vue({
   el: 'app',
-  created: function () {
-    console.log('root instance was created')
-  },
   components: {App},
   methods: {}
 })
