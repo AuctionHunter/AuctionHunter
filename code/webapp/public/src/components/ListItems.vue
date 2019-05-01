@@ -1,18 +1,18 @@
 <template>
-<div>
-  <div class="col-md-12" v-show="auctionItems.length>0">
-    <div class="row mrb-10" v-for="auctionItem in auctionItems">
-      <div class="input-group m-b-5">
-        <p>{{auctionItem.car_name}}</p>
-        <p>{{auctionItem.body}}</p>
-      </div>
-    </div>
+<div class="card-columns">
+  <div v-for="(auctionItem, index) in auctionItems">
+    <DataCard
+    :index="trackIndex(index)"
+    :carName="auctionItem.car_name"
+    :carThumbnail="auctionItem.car_image">
+    </DataCard>
   </div>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
+import DataCard from './DataCard.vue';
 
 export default {
   name: 'ListItems',
@@ -20,6 +20,9 @@ export default {
     return {
       auctionItems: []
     }
+  },
+  components: {
+    DataCard
   },
   created: function() {
     this.fetchItems();
@@ -29,6 +32,9 @@ export default {
     });
   },
   methods: {
+    trackIndex: function(index) {
+      return index + 1
+    },
     fetchItems() {
       let uri = 'http://localhost:8080/api/all';
       axios.get(uri).then((response) => {

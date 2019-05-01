@@ -2,9 +2,7 @@
 <div id="app">
   <Navbar></Navbar>
   <div class="container">
-    <div class="row col-md-6 offset-md-3">
       <ListItems></ListItems>
-    </div>
   </div>
 </div>
 </template>
