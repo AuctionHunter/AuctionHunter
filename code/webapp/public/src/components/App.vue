@@ -1,18 +1,17 @@
 <template>
 <div id="app">
+  <Navbar></Navbar>
   <div class="container">
     <div class="row col-md-6 offset-md-3">
-      <ViewButton></ViewButton>
       <ListItems></ListItems>
     </div>
   </div>
 </div>
 </template>
 
-
 <script>
 import ListItems from './ListItems.vue';
-import ViewButton from './ViewButton.vue';
+import Navbar from './Navbar.vue';
 export default {
   name: 'app',
   data() {
@@ -20,7 +19,7 @@ export default {
   },
   components: {
     ListItems,
-    ViewButton
+    Navbar
   },
 }
 </script>

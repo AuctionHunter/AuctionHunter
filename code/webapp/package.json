@@ -9,14 +9,16 @@
         "build": "webpack"
     },
     "dependencies": {
+        "axios": "^0.16.2",
         "body-parser": "^1.5.2",
         "bootstrap": "^4.0.0-beta.2",
         "express": "~4.7.2",
+        "jquery": "^3.4.0",
         "method-override": "~2.1.2",
         "mongoose": "4.7.6",
         "morgan": "^1.9.0",
         "npm": "^6.9.0",
-        "axios": "^0.16.2",
+        "popper.js": "^1.15.0",
         "vue": "^2.5.11",
         "vue-axios": "^2.0.2"
     },

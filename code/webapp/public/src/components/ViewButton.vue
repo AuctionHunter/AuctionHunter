@@ -1,6 +1,6 @@
 <template>
 <div>
-  <button type="button" v-on:click="refresh" class="btn btn-success">Refresh</button>
+  <button type="button" v-on:click="refresh" class="btn btn-info">Refresh</button>
 </div>
 </template>
 

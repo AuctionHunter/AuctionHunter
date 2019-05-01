@@ -1,7 +1,6 @@
 <template>
 <div>
   <div class="col-md-12" v-show="auctionItems.length>0">
-    <h3>Auction Hunter</h3>
     <div class="row mrb-10" v-for="auctionItem in auctionItems">
       <div class="input-group m-b-5">
         <p>{{auctionItem.car_name}}</p>
