@@ -6,7 +6,7 @@
       :src="carThumbnail"
       :alt="carName"
       class="img-thumbnail">
-      <a href="#" class="btn btn-primary">More Info</a>
+      <button type="button" v-on:click="toggle_modal" class="btn btn-info">More Info</button>
     </div>
   </div>
 </template>
@@ -20,10 +20,16 @@ export default {
   updated() {
     console.log(this.index);
   },
+  methods: {
+    toggle_modal(){
+      this.$eventHub.$emit('openModal', this.data);
+    }
+  },
   props: {
     carName: String,
     carThumbnail: String,
-    index: Number
+    index: Number,
+    data: Object
   }
 }
 </script>
