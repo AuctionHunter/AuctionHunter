@@ -17,9 +17,6 @@ export default {
   data() {
     return {}
   },
-  updated() {
-    console.log(this.index);
-  },
   methods: {
     toggle_modal(){
       this.$eventHub.$emit('openModal', this.data);
