@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     refresh() {
-       this.$eventHub.$emit('refreshTodo');
+       this.$eventHub.$emit('refreshList');
     }
   }
 }

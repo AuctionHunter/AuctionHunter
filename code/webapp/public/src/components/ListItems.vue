@@ -37,7 +37,7 @@ export default {
   created: function() {
     this.fetchItems();
     var parent = this;
-    this.$eventHub.$on('refreshTodo', function(payload) {
+    this.$eventHub.$on('refreshList', function(payload) {
       parent.fetchItems();
     });
     this.$eventHub.$on('searchName', function(payload) {

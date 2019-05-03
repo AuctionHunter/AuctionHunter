@@ -1,7 +1,5 @@
 var mongoose = require('mongoose')
 
-// Define collection and schema for todo item
-
 var auctionhunter = new mongoose.Schema({
   estimated_price: {
     type: String
