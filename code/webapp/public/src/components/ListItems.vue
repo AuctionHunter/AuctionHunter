@@ -158,7 +158,7 @@ export default {
       var resultArray = [];
       for (var i = 0; i < myArray.length; i++) {
         var curr_string = myArray[i].start_code
-        if (curr_string == codeKey) {
+        if (curr_string.trim() === codeKey.trim()) {
           resultArray.push(myArray[i]);
         }
       }
