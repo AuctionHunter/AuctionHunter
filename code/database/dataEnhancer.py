@@ -70,7 +70,7 @@ def main():
         #print(enhancer.parseDamage(str(current_entry.get("primary damage"))))
         value = enhancer.getValueEstimation(current_entry)
         currentVin = current_entry.get("vin")
-        database.scrapy_items.update_one({"vin": currentVin}, {"$set": {"value_est": value}})
+        database.scrapy_items.update_one({"vin": currentVin}, {"$set": {"value_est": round(value,2)}})
 
 if __name__ == "__main__":
     main()
