@@ -50,7 +50,7 @@
     "react": "^16.8.3",
     "react-app-polyfill": "^0.2.1",
     "react-chartist": "^0.13.3",
-    "react-dev-utils": "^7.0.3",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.8.3",
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^4.3.1",
